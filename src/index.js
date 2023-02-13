@@ -6,6 +6,7 @@ import LoadMoreBTN from './search-btn';
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 import { createMarkup } from './gallery';
+import './css/styles.css';
 
 const refs = {
   searchForm: document.querySelector('#search-form'),
