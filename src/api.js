@@ -1,21 +1,41 @@
+import axios from 'axios';
+const BASE_URL = 'https://pixabay.com/api/';
+const API_KEY = "10499035-4c19632db287de98b060ef18d";
 
-// const options = {
-//     heders: {
-//         Authorization: `10499035-4c19632db287de98b060ef18d`,
-//     },
-// };
-// const url = (`https://pixabay.com/api/&q=cat&image_type=photo`)
-//     .then((res) => {
-//         console.log(res);
-//         return res.json();
-//     })
-//     .then(console.log)
-//     .catch(console.log);
+export default class SearchApiService {
+  constructor() {
+    this.searchQuery = '';
+    // значення page зберігаємо як ключ об'єкта
+    this.page = 1;
+    this.per_page = 40;
+  }
 
-// fetch("https://pixabay.com/api/?key=10499035-4c19632db287de98b060ef18d&q=cat&image_type=photo")
-//   .then(res => console.log(res));
+    async fetchSearchPictures() {
+    console.log(this);
 
-fetch("https://pixabay.com/api/?key=10499035-4c19632db287de98b060ef18d&q=cat&image_type=photo")
+     const res = await axios.get("${BASE_URL}?key=${API_KEY}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&per_page=${this.per_page}&page=${this.page}`")
   
-  .then((res) => res.json())
-  .then((data) => console.log(data));
+  const data = res.data;
+    console.log(data);
+    if (res.status !== 200) {
+      throw new Error(res.status);
+    }
+
+    return data;
+  }
+// метод збільшення на 1
+  incrementPage() {
+    this.page += 1;
+  }
+  // метод, який скидає сторінку на 1-шу сторінку
+  resetPage() {
+    this.page = 1;
+  }
+  // get & set контролює термін запиту
+  get query() {
+    return this.searchQuery;
+  }
+  set query(newQuery) {
+    this.searchQuery = newQuery;
+  }
+}
