@@ -2,8 +2,8 @@ export function createMarkup(pictures = []) {
   return pictures
     .map(
       // picture - це об'єкт  picture.largeImageURL - ключ об'єкта
-      picture => `
-        <div class="photo-card">
+      picture => 
+      `<div class="photo-card">
           <a class "gallery-link" href="${picture.largeImageURL}">
           <img class "gallery-image" src="${picture.webformatURL}" alt="${picture.tags}" loading="lazy" width="370" height="240"/>
           </a>
